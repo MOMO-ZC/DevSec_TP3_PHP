@@ -1,4 +1,4 @@
-function addTask() {
+function ajouterTache() {
     let taskInput = document.getElementById("taskInput");
     if (taskInput.value.trim() === "") return;
 
@@ -8,11 +8,11 @@ function addTask() {
         body: "task=" + encodeURIComponent(taskInput.value)
     }).then(() => {
         taskInput.value = "";
-        loadTasks();
+        chargerTaches();
     });
 }
 
-function loadTasks() {
+function chargerTaches() {
     fetch("./PHP/get_tasks.php")
         .then(response => response.json())
         .then(tasks => {
@@ -30,7 +30,7 @@ function loadTasks() {
                         method: "POST",
                         headers: { "Content-Type": "application/x-www-form-urlencoded" },
                         body: "id=" + task.id
-                    }).then(() => loadTasks());
+                    }).then(() => chargerTaches());
                 };
 
                 li.appendChild(deleteBtn);
@@ -39,7 +39,7 @@ function loadTasks() {
         });
 }
 
-function searchTasks() {
+function rechercherTaches() {
     let searchInput = document.getElementById("searchInput").value;
 
     fetch("./PHP/search_tasks.php?query=" + encodeURIComponent(searchInput))
@@ -59,7 +59,7 @@ function searchTasks() {
                         method: "POST",
                         headers: { "Content-Type": "application/x-www-form-urlencoded" },
                         body: "id=" + task.id
-                    }).then(() => loadTasks());
+                    }).then(() => chargerTaches());
                 };
 
                 li.appendChild(deleteBtn);
@@ -68,5 +68,4 @@ function searchTasks() {
         });
 }
 
-
-document.addEventListener("DOMContentLoaded", loadTasks);
+document.addEventListener("DOMContentLoaded", chargerTaches);
