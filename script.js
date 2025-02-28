@@ -68,4 +68,25 @@ function rechercherTaches() {
         });
 }
 
+function connexion(){
+    let login = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+
+    //fetch("./PHP/unsecured_login.php", { // non sécurisé
+    fetch("./PHP/secured_login.php", { // sécurisé
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: "username=" + encodeURIComponent(login) + "&password=" + encodeURIComponent(password)
+    }).then(response => response.json())
+        .then(response => {
+            console.log(response
+            );
+            if(response.success){
+                window.location.href = "./main.php";
+            
+                loadTasks();
+            }
+        });
+}
+
 document.addEventListener("DOMContentLoaded", chargerTaches);

@@ -9,5 +9,5 @@ while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
 }
 
 header('Content-Type: application/json');
-echo json_encode($tasks);
+echo json_encode($tasks); 
 ?>
